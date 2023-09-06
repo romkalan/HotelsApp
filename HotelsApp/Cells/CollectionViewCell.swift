@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+final class CollectionViewCell: UICollectionViewCell {
     
     static let reuseID = "cell"
     let image = UIImageView()
@@ -22,7 +22,7 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCellUI() {
+    private func setupCellUI() {
         self.contentView.addSubview(image)
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true

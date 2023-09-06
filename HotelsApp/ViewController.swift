@@ -9,7 +9,7 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private let pageControl: UIPageControl = {
+    private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 5
         pageControl.backgroundColor = .white
@@ -19,9 +19,16 @@ final class ViewController: UIViewController {
         return pageControl
     }()
     
+    private lazy var mainInformationView: MainInformationView = {
+        let mainInfoView = MainInformationView()
+        mainInfoView.layer.cornerRadius = 15
+        return mainInfoView
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .systemBackground
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
@@ -48,6 +55,7 @@ final class ViewController: UIViewController {
             forCellWithReuseIdentifier: CollectionViewCell.reuseID
         )
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
 
@@ -61,6 +69,7 @@ final class ViewController: UIViewController {
     
         contentView.addSubview(collectionView)
         contentView.addSubview(pageControl)
+        contentView.addSubview(mainInformationView)
         
         setupUI()
         
@@ -74,6 +83,7 @@ extension ViewController {
         setupContentViewConstraints()
         setupCollectionViewConstraints()
         setupPageControlConstraints()
+        setupMainInformationViewConstraints()
     }
     
     private func setupScrollViewConstraints() {
@@ -114,6 +124,16 @@ extension ViewController {
             pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -8),
         ])
     }
+    private func setupMainInformationViewConstraints() {
+        mainInformationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainInformationView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
+            mainInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            mainInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            mainInformationView.widthAnchor.constraint(equalToConstant: 343),
+            mainInformationView.heightAnchor.constraint(equalToConstant: 257)
+        ])
+    }
 }
 
 // MARK: UICollectionViewDelegate, UICollectionViewDataSource
@@ -128,7 +148,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             for: indexPath
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.backgroundColor = .brown
+        cell.backgroundColor = .cyan
         return cell
     }
     
