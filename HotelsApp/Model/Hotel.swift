@@ -7,18 +7,20 @@
 
 import Foundation
 
-struct Hotel {
+struct Hotel: Decodable {
+    let id: Int
     let name: String
     let adress: String
-    let minimalPrice: String
-    let priceForIt: String
+    let minimal_price: Int
+    let price_for_it: String
     let rating: Int
-    let ratingName: String
-    let image: URL
-    let aboutTheHotel: Description
+    let rating_name: String
+    let image_urls: [String]
+    let about_the_hotel: Description
+
 }
 
-struct Description {
+struct Description: Decodable {
     let description: String
     let peculiarities: [String]
 }

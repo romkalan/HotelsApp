@@ -9,6 +9,10 @@ import UIKit
 
 final class MainInformationView: UIView {
     
+    private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
+    private var hotels: [Hotel] = []
+    private let networkManager = NetworkManager.shared
+    
     private let ratingView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 5
@@ -24,7 +28,7 @@ final class MainInformationView: UIView {
         return icon
     }()
     
-    private let rateLabel: UILabel = {
+    private lazy var rateLabel: UILabel = {
         let label = UILabel()
         label.text = "5 Превосходно"
         label.textAlignment = .left
@@ -59,7 +63,7 @@ final class MainInformationView: UIView {
         return button
     }()
     
-    private let hotelPriceLabel: UILabel = {
+    private var hotelPriceLabel: UILabel = {
         let label = UILabel()
         label.text = "от 134 673 ₽"
         label.textAlignment = .left
@@ -69,9 +73,9 @@ final class MainInformationView: UIView {
         return label
     }()
     
-    private let forWayWithFlyLabel: UILabel = {
+    private var forWayWithFlyLabel: UILabel = {
         let label = UILabel()
-        label.text = "за тур с перелётом"
+        label.text = "За тур с перелётом"
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "SF Pro Display", size: 16)
@@ -82,11 +86,23 @@ final class MainInformationView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        fetchHotel()
         setupUI()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func fetchHotel() {
+        networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
+            switch result {
+            case .success(let hotel):
+                self?.hotels.append(hotel)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 

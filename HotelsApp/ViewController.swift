@@ -9,7 +9,11 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private lazy var pageControl: UIPageControl = {
+    private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
+    private var hotels: [Hotel] = []
+    private let networkManager = NetworkManager.shared
+    
+    let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 5
         pageControl.backgroundColor = .white
@@ -19,7 +23,7 @@ final class ViewController: UIViewController {
         return pageControl
     }()
     
-    private lazy var mainInformationView: MainInformationView = {
+    let mainInformationView: MainInformationView = {
         let mainInfoView = MainInformationView()
         mainInfoView.layer.cornerRadius = 15
         return mainInfoView
@@ -72,7 +76,19 @@ final class ViewController: UIViewController {
         contentView.addSubview(mainInformationView)
         
         setupUI()
-        
+        fetchHotel()
+    }
+    
+    private func fetchHotel() {
+        networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
+            switch result {
+            case .success(let hotel):
+                self?.hotels.append(hotel)
+                print(hotel)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
@@ -133,6 +149,7 @@ extension ViewController {
             mainInformationView.widthAnchor.constraint(equalToConstant: 343),
             mainInformationView.heightAnchor.constraint(equalToConstant: 257)
         ])
+//        mainInformationView.rateLabel.textColor = .green
     }
 }
 
@@ -149,6 +166,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
         cell.backgroundColor = .cyan
+//        let hotel = hotels[indexPath.row]
+//        cell.image.image = UIImage(named: hotel.image)
         return cell
     }
     

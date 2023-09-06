@@ -10,7 +10,7 @@ import UIKit
 final class CollectionViewCell: UICollectionViewCell {
     
     static let reuseID = "cell"
-    let image = UIImageView()
+    var image = UIImageView()
     let pageControl = UIPageControl()
     
     override init(frame: CGRect) {
