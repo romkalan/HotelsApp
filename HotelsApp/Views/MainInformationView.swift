@@ -112,6 +112,7 @@ extension MainInformationView {
         self.addSubview(ratingView)
         ratingView.addSubview(starIcon)
         ratingView.addSubview(rateLabel)
+        
         self.addSubview(hotelNameLabel)
         self.addSubview(addressButton)
         self.addSubview(hotelPriceLabel)

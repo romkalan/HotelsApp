@@ -10,7 +10,8 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
-    private var hotels: [Hotel] = []
+    private var hotel: Hotel!
+    private var image: UIImage!
     private let networkManager = NetworkManager.shared
     
     let pageControl: UIPageControl = {
@@ -25,8 +26,12 @@ final class ViewController: UIViewController {
     
     let mainInformationView: MainInformationView = {
         let mainInfoView = MainInformationView()
-        mainInfoView.layer.cornerRadius = 15
         return mainInfoView
+    }()
+    
+    let additionInformationView: AdditionInformationView = {
+        let additionInformationView = AdditionInformationView()
+        return additionInformationView
     }()
     
     private lazy var scrollView: UIScrollView = {
@@ -62,10 +67,26 @@ final class ViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
+    private lazy var chooseRoomButton: UIButton = {
+        var attributes = AttributeContainer()
+        attributes.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.attributedTitle = AttributedString("К выбору номера", attributes: attributes)
+        
+        
+        let button = UIButton(configuration: buttonConfiguration, primaryAction: UIAction { [unowned self] _ in
+            chooseRoom()
+        })
+        button.titleLabel?.textAlignment = .center
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = "Отель"
         
         view.addSubview(scrollView)
@@ -74,17 +95,25 @@ final class ViewController: UIViewController {
         contentView.addSubview(collectionView)
         contentView.addSubview(pageControl)
         contentView.addSubview(mainInformationView)
+        contentView.addSubview(additionInformationView)
+        contentView.addSubview(chooseRoomButton)
         
         setupUI()
         fetchHotel()
+    }
+    
+    private func chooseRoom() {
+        let vc = RoomsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func fetchHotel() {
         networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
             switch result {
             case .success(let hotel):
-                self?.hotels.append(hotel)
+                self?.hotel = hotel
                 print(hotel)
+                self?.collectionView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -100,16 +129,18 @@ extension ViewController {
         setupCollectionViewConstraints()
         setupPageControlConstraints()
         setupMainInformationViewConstraints()
+        setupAdditionInformationViewConstraints()
+        setupChooseRoomButton()
     }
     
     private func setupScrollViewConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height)
         ])
     }
     private func setupContentViewConstraints() {
@@ -120,7 +151,8 @@ extension ViewController {
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+//            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80)
         ])
     }
     private func setupCollectionViewConstraints() {
@@ -146,10 +178,27 @@ extension ViewController {
             mainInformationView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
             mainInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             mainInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            mainInformationView.widthAnchor.constraint(equalToConstant: 343),
-            mainInformationView.heightAnchor.constraint(equalToConstant: 257)
+            mainInformationView.heightAnchor.constraint(equalToConstant: 160)
         ])
-//        mainInformationView.rateLabel.textColor = .green
+    }
+    
+    private func setupAdditionInformationViewConstraints() {
+        additionInformationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            additionInformationView.topAnchor.constraint(equalTo: mainInformationView.bottomAnchor, constant: 8),
+            additionInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            additionInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            additionInformationView.heightAnchor.constraint(equalToConstant: 428)
+        ])
+    }
+    
+    private func setupChooseRoomButton() {
+        NSLayoutConstraint.activate([
+            chooseRoomButton.topAnchor.constraint(equalTo: additionInformationView.bottomAnchor, constant: 8),
+            chooseRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            chooseRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            chooseRoomButton.heightAnchor.constraint(equalToConstant: 48),
+        ])
     }
 }
 
@@ -166,8 +215,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
         cell.backgroundColor = .cyan
-//        let hotel = hotels[indexPath.row]
-//        cell.image.image = UIImage(named: hotel.image)
+        cell.configure(image: UIImage(named: "mainImage"))
         return cell
     }
     

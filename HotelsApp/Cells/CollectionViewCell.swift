@@ -24,8 +24,7 @@ final class CollectionViewCell: UICollectionViewCell {
     
     private func setupCellUI() {
         self.contentView.addSubview(image)
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
                 
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -34,5 +33,9 @@ final class CollectionViewCell: UICollectionViewCell {
             image.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             image.rightAnchor.constraint(equalTo: contentView.rightAnchor),
         ])
+    }
+    
+    func configure(image: UIImage?) {
+        self.image.image = image
     }
 }

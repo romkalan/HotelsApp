@@ -30,6 +30,9 @@
 		AD1DEA092AA78B4C00D836EB /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD1DE9F62AA78B4C00D836EB /* SF-Pro-Display-Medium.otf */; };
 		AD1DEA0D2AA841BA00D836EB /* Hotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA0C2AA841BA00D836EB /* Hotel.swift */; };
 		AD1DEA0F2AA8AC7F00D836EB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA0E2AA8AC7F00D836EB /* NetworkManager.swift */; };
+		AD1DEA112AA9E67800D836EB /* AdditionInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */; };
+		AD1DEA162AA9F9AE00D836EB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */; };
+		AD1DEA1A2AAA147700D836EB /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA192AAA147700D836EB /* RoomsViewController.swift */; };
 		ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */; };
 		ADBD688F2AA63267005CC2E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */; };
 		ADBD68912AA63267005CC2E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD68902AA63267005CC2E4 /* ViewController.swift */; };
@@ -61,6 +64,9 @@
 		AD1DE9F62AA78B4C00D836EB /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 		AD1DEA0C2AA841BA00D836EB /* Hotel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hotel.swift; sourceTree = "<group>"; };
 		AD1DEA0E2AA8AC7F00D836EB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionInformationView.swift; sourceTree = "<group>"; };
+		AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		AD1DEA192AAA147700D836EB /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewController.swift; sourceTree = "<group>"; };
 		ADBD68892AA63267005CC2E4 /* HotelsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +90,10 @@
 		AD1DE9E12AA775C600D836EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ADBD68902AA63267005CC2E4 /* ViewController.swift */,
 				AD1DE9DF2AA775C100D836EB /* MainInformationView.swift */,
+				AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */,
+				AD1DEA192AAA147700D836EB /* RoomsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -93,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				AD1DE9DD2AA7594800D836EB /* CollectionViewCell.swift */,
+				AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -139,6 +149,15 @@
 			path = NetworkManager;
 			sourceTree = "<group>";
 		};
+		AD1DEA122AA9E6B400D836EB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */,
+				ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		ADBD68802AA63267005CC2E4 = {
 			isa = PBXGroup;
 			children = (
@@ -161,9 +180,7 @@
 				AD1DEA0B2AA841A700D836EB /* NetworkManager */,
 				AD1DEA0A2AA8419900D836EB /* Model */,
 				AD1DE9E32AA78AE400D836EB /* Fonts */,
-				ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */,
-				ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */,
-				ADBD68902AA63267005CC2E4 /* ViewController.swift */,
+				AD1DEA122AA9E6B400D836EB /* App */,
 				AD1DE9E12AA775C600D836EB /* Views */,
 				AD1DE9E22AA775F400D836EB /* Cells */,
 				ADBD68952AA63268005CC2E4 /* Assets.xcassets */,
@@ -265,8 +282,11 @@
 				AD1DEA0D2AA841BA00D836EB /* Hotel.swift in Sources */,
 				AD1DE9E02AA775C100D836EB /* MainInformationView.swift in Sources */,
 				ADBD68912AA63267005CC2E4 /* ViewController.swift in Sources */,
+				AD1DEA162AA9F9AE00D836EB /* TableViewCell.swift in Sources */,
 				AD1DEA0F2AA8AC7F00D836EB /* NetworkManager.swift in Sources */,
 				ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */,
+				AD1DEA1A2AAA147700D836EB /* RoomsViewController.swift in Sources */,
+				AD1DEA112AA9E67800D836EB /* AdditionInformationView.swift in Sources */,
 				AD1DE9DE2AA7594800D836EB /* CollectionViewCell.swift in Sources */,
 				ADBD688F2AA63267005CC2E4 /* SceneDelegate.swift in Sources */,
 			);
