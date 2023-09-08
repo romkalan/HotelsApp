@@ -7,17 +7,18 @@
 
 import Foundation
 
-struct Room: Decodable {
+struct Rooms: Codable {
+    let rooms: [Room]
+}
+
+struct Room: Codable {
     let id: Int
     let name: String
-    let price: String
-    let price_per: Int
+    let price: Int
+    let price_per: String
     let peculiarities: [String]
     let image_urls: [String]
 }
 
-struct Rooms: Decodable {
-    let rooms: [Room]
-}
 
 

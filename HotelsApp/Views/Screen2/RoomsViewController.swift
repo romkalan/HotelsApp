@@ -10,7 +10,7 @@ import UIKit
 class RoomsViewController: UIViewController {
     
     let urlAPI = URL(string: "https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd")
-    var rooms = Rooms(rooms: [])
+    private var rooms = Rooms(rooms: [])
     let networkManager = NetworkManager.shared
     
     private lazy var tableView: UITableView = {
@@ -26,21 +26,8 @@ class RoomsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSettings()
-        
         fetchRooms()
         setupUI()
-    }
-    
-    private func initialSettings() {
-        view.backgroundColor = .systemBackground
-        navigationItem.title = "Steigenberger Makadi"
-        let newBackButton = UIBarButtonItem.init(
-            title: "",
-            style: UIBarButtonItem.Style.plain,
-            target: nil,
-            action: nil
-        )
-        navigationController?.navigationBar.topItem?.backBarButtonItem = newBackButton
     }
     
     private func fetchRooms() {
@@ -55,14 +42,27 @@ class RoomsViewController: UIViewController {
             }
         }
     }
-    
     private func reservationButton() {
         let vc = ReservationViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        if !(self.navigationController!.topViewController! is ReservationViewController) {
+           self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 extension RoomsViewController {
+    private func initialSettings() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Steigenberger Makadi"
+        let newBackButton = UIBarButtonItem.init(
+            title: "",
+            style: UIBarButtonItem.Style.plain,
+            target: nil,
+            action: nil
+        )
+        navigationController?.navigationBar.topItem?.backBarButtonItem = newBackButton
+    }
+    
     private func setupUI() {
         view.addSubview(tableView)
         
@@ -88,7 +88,8 @@ extension RoomsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let action = UIAction { [unowned self] _ in reservationButton() }
         cell.detailRoomButton.addAction(action, for: .touchUpInside)
-        
+//        let room = rooms.rooms[indexPath.row]
+//        cell.countOfNightsLabel.text = room.name
         cell.selectionStyle = .none
         return cell
     }

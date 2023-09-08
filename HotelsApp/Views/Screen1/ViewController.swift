@@ -10,7 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
-    var hotel: Hotel!
+    private var hotel: Hotel!
     private var image: UIImage!
     private let networkManager = NetworkManager.shared
     
@@ -24,27 +24,10 @@ final class ViewController: UIViewController {
         return pageControl
     }()
     
-    let mainInformationView: MainInformationView = {
-        let mainInfoView = MainInformationView()
-        return mainInfoView
-    }()
-    
-    let additionInformationView: AdditionInformationView = {
-        let additionInformationView = AdditionInformationView()
-        return additionInformationView
-    }()
-    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .systemBackground
-        scrollView.showsVerticalScrollIndicator = false
-        return scrollView
-    }()
-    
-    private lazy var contentView: UIView = {
-        let contentView = UIView()
-        return contentView
-    }()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let mainInformationView = MainInformationView1()
+    private let additionInformationView = AdditionInformationView()
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,7 +47,6 @@ final class ViewController: UIViewController {
             forCellWithReuseIdentifier: CollectionViewCell.reuseID
         )
         collectionView.isPagingEnabled = true
-//        collectionView.
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
@@ -76,10 +58,11 @@ final class ViewController: UIViewController {
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.attributedTitle = AttributedString("К выбору номера", attributes: attributes)
         
-        
-        let button = UIButton(configuration: buttonConfiguration, primaryAction: UIAction { [unowned self] _ in
-            chooseRoom()
-        })
+        let button = UIButton(
+            configuration: buttonConfiguration,
+            primaryAction: UIAction
+            { [unowned self] _ in chooseRoom() }
+        )
         button.titleLabel?.textAlignment = .center
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +74,9 @@ final class ViewController: UIViewController {
         navigationItem.title = "Отель"
         
         view.addSubview(scrollView)
+        scrollView.backgroundColor = .systemBackground
+        scrollView.showsVerticalScrollIndicator = false
+        
         scrollView.addSubview(contentView)
     
         contentView.addSubview(collectionView)
@@ -110,6 +96,7 @@ final class ViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: - Networking
     private func fetchHotel() {
         networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
             switch result {
@@ -124,7 +111,7 @@ final class ViewController: UIViewController {
     }
 }
 
-// MARK: SetupUI
+// MARK: - SetupUI
 extension ViewController {
     private func setupUI() {
         setupScrollViewConstraints()
@@ -183,7 +170,6 @@ extension ViewController {
             mainInformationView.heightAnchor.constraint(equalToConstant: 160)
         ])
     }
-    
     private func setupAdditionInformationViewConstraints() {
         additionInformationView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -225,7 +211,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -233,13 +219,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
         let frameSize = collectionView.frame.size
         return CGSize(width: frameSize.width - 10, height: frameSize.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
         return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 }

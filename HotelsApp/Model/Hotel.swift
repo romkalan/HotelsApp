@@ -16,11 +16,11 @@ struct Hotel: Codable {
     let rating: Int
     let rating_name: String
     let image_urls: [String]
-    let about_the_hotel: Description
+    let about_the_hotel: AboutTheHotel
 
 }
 
-struct Description: Codable {
+struct AboutTheHotel: Codable {
     let description: String
     let peculiarities: [String]
 }

@@ -10,7 +10,7 @@ import UIKit
 class RoomTableViewCell: UITableViewCell {
     static let reuseID = "room"
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
@@ -22,7 +22,7 @@ class RoomTableViewCell: UITableViewCell {
         )
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.layer.cornerRadius = 15
+        collectionView.layer.cornerRadius = 30
         collectionView.register(
             CollectionViewCell.self,
             forCellWithReuseIdentifier: CollectionViewCell.reuseID
@@ -139,9 +139,8 @@ class RoomTableViewCell: UITableViewCell {
     }
     
     public func configure(with image: UIImage, and text: String, and secondaryText: String) {
-
     }
-    
+    // MARK: - NSLayoutConstraint
     private func setupUI() {
         contentView.addSubview(collectionView)
         contentView.addSubview(pageControl)
@@ -191,10 +190,10 @@ class RoomTableViewCell: UITableViewCell {
     }
 
 }
-
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -203,7 +202,13 @@ extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             for: indexPath
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.configure(image: UIImage(named: "mainImage"))
+        if indexPath.row == 0 {
+            cell.configure(image: UIImage(named: "room1"))
+        } else if indexPath.row == 1 {
+            cell.configure(image: UIImage(named: "room2"))
+        } else {
+            cell.configure(image: UIImage(named: "room3"))
+        }
         return cell
     }
     
@@ -212,7 +217,7 @@ extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension RoomTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
