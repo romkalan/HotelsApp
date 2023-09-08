@@ -56,21 +56,6 @@ class AdditionInformationView: UIView {
         return table
     }()
     
-//    private lazy var chooseRoomButton: UIButton = {
-//        var attributes = AttributeContainer()
-//        attributes.font = UIFont.boldSystemFont(ofSize: 16)
-//
-//        var buttonConfiguration = UIButton.Configuration.filled()
-//        buttonConfiguration.attributedTitle = AttributedString("К выбору номера", attributes: attributes)
-//
-//        let button = UIButton(configuration: buttonConfiguration)
-//        button.titleLabel?.textAlignment = .center
-////        button.backgroundColor = UIColor(red: 13, green: 114, blue: 255, alpha: 1)
-//
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -159,6 +144,7 @@ extension AdditionInformationView: UITableViewDelegate, UITableViewDataSource {
             break
         }
         cell.backgroundColor = UIColor(named: "backgroundGray")
+        cell.selectionStyle = .none
         return cell
     }
     

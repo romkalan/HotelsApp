@@ -10,7 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
-    private var hotel: Hotel!
+    var hotel: Hotel!
     private var image: UIImage!
     private let networkManager = NetworkManager.shared
     
@@ -64,13 +64,14 @@ final class ViewController: UIViewController {
             forCellWithReuseIdentifier: CollectionViewCell.reuseID
         )
         collectionView.isPagingEnabled = true
+//        collectionView.
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
     private lazy var chooseRoomButton: UIButton = {
         var attributes = AttributeContainer()
-        attributes.font = UIFont.boldSystemFont(ofSize: 16)
+        attributes.font = UIFont(name: "SF Pro Display", size: 16)
         
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.attributedTitle = AttributedString("К выбору номера", attributes: attributes)
@@ -100,6 +101,8 @@ final class ViewController: UIViewController {
         
         setupUI()
         fetchHotel()
+        
+//        print(self.hotel.about_the_hotel.description)
     }
     
     private func chooseRoom() {
@@ -151,7 +154,6 @@ extension ViewController {
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-//            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
             contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80)
         ])
     }
@@ -214,7 +216,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             for: indexPath
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.backgroundColor = .cyan
         cell.configure(image: UIImage(named: "mainImage"))
         return cell
     }
@@ -226,12 +227,22 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        10
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(
-            width: contentView.frame.size.width,
-            height: contentView.frame.size.height
-        )
+
+        let frameSize = collectionView.frame.size
+        return CGSize(width: frameSize.width - 10, height: frameSize.height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 }
+
 
 

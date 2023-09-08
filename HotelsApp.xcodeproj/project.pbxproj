@@ -33,6 +33,9 @@
 		AD1DEA112AA9E67800D836EB /* AdditionInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */; };
 		AD1DEA162AA9F9AE00D836EB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */; };
 		AD1DEA1A2AAA147700D836EB /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA192AAA147700D836EB /* RoomsViewController.swift */; };
+		AD1DEA1C2AAA2C1500D836EB /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA1B2AAA2C1500D836EB /* RoomTableViewCell.swift */; };
+		AD1DEA1E2AAA3AC600D836EB /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA1D2AAA3AC600D836EB /* ReservationViewController.swift */; };
+		AD1DEA202AAA40AE00D836EB /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DEA1F2AAA40AE00D836EB /* Room.swift */; };
 		ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */; };
 		ADBD688F2AA63267005CC2E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */; };
 		ADBD68912AA63267005CC2E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD68902AA63267005CC2E4 /* ViewController.swift */; };
@@ -67,6 +70,9 @@
 		AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionInformationView.swift; sourceTree = "<group>"; };
 		AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		AD1DEA192AAA147700D836EB /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewController.swift; sourceTree = "<group>"; };
+		AD1DEA1B2AAA2C1500D836EB /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
+		AD1DEA1D2AAA3AC600D836EB /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
+		AD1DEA1F2AAA40AE00D836EB /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		ADBD68892AA63267005CC2E4 /* HotelsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADBD688E2AA63267005CC2E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +100,7 @@
 				AD1DE9DF2AA775C100D836EB /* MainInformationView.swift */,
 				AD1DEA102AA9E67800D836EB /* AdditionInformationView.swift */,
 				AD1DEA192AAA147700D836EB /* RoomsViewController.swift */,
+				AD1DEA1D2AAA3AC600D836EB /* ReservationViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 			children = (
 				AD1DE9DD2AA7594800D836EB /* CollectionViewCell.swift */,
 				AD1DEA152AA9F9AE00D836EB /* TableViewCell.swift */,
+				AD1DEA1B2AAA2C1500D836EB /* RoomTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -137,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				AD1DEA0C2AA841BA00D836EB /* Hotel.swift */,
+				AD1DEA1F2AAA40AE00D836EB /* Room.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,10 +294,13 @@
 				AD1DEA162AA9F9AE00D836EB /* TableViewCell.swift in Sources */,
 				AD1DEA0F2AA8AC7F00D836EB /* NetworkManager.swift in Sources */,
 				ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */,
+				AD1DEA202AAA40AE00D836EB /* Room.swift in Sources */,
 				AD1DEA1A2AAA147700D836EB /* RoomsViewController.swift in Sources */,
+				AD1DEA1C2AAA2C1500D836EB /* RoomTableViewCell.swift in Sources */,
 				AD1DEA112AA9E67800D836EB /* AdditionInformationView.swift in Sources */,
 				AD1DE9DE2AA7594800D836EB /* CollectionViewCell.swift in Sources */,
 				ADBD688F2AA63267005CC2E4 /* SceneDelegate.swift in Sources */,
+				AD1DEA1E2AAA3AC600D836EB /* ReservationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

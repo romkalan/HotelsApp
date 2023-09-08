@@ -11,7 +11,6 @@ final class CollectionViewCell: UICollectionViewCell {
     
     static let reuseID = "cell"
     var image = UIImageView()
-    let pageControl = UIPageControl()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
