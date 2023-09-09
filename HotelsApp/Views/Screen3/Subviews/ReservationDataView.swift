@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReservationDataView: UIView {
+final class ReservationDataView: UIView {
 
     private lazy var flyPositionInfo1: UILabel = {
         setup("Вылет из", and: UIColor(named: "customGray") ?? .black)
@@ -72,27 +72,24 @@ class ReservationDataView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-
+    
+    func configure(data: Reservation) {
+        flyInfo1.text = data.departure
+        flyInfo2.text = data.arrival_country
+        flyInfo3.text = data.tour_date_start + " - " + data.tour_date_stop
+        flyInfo4.text = String(data.number_of_nights) + " ночей"
+        flyInfo6.text = data.room
+        flyInfo7.text = data.nutrition
+    }
 }
 
 extension ReservationDataView {
-    private func setupUI() {
-        self.addSubview(flyPositionInfo1)
-        self.addSubview(flyPositionInfo2)
-        self.addSubview(flyPositionInfo3)
-        self.addSubview(flyPositionInfo4)
-        self.addSubview(flyPositionInfo5)
-        self.addSubview(flyPositionInfo6)
-        self.addSubview(flyPositionInfo7)
-        self.addSubview(flyInfo1)
-        self.addSubview(flyInfo2)
-        self.addSubview(flyInfo3)
-        self.addSubview(flyInfo4)
-        self.addSubview(flyInfo5)
-        self.addSubview(flyInfo6)
-        self.addSubview(flyInfo7)
+        private func setupUI() {
+        setupSubviews(flyPositionInfo1, flyInfo1, flyPositionInfo2, flyInfo2, flyPositionInfo3,
+                      flyInfo3, flyPositionInfo4, flyInfo4, flyPositionInfo5, flyInfo5,
+                      flyPositionInfo6, flyInfo6, flyPositionInfo7, flyInfo7
+        )
        
-        
         NSLayoutConstraint.activate([
             flyPositionInfo1.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             flyPositionInfo1.leftAnchor.constraint(equalTo: self.leftAnchor),

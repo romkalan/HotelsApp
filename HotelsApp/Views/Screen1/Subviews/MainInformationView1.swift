@@ -9,10 +9,6 @@ import UIKit
 
 final class MainInformationView1: UIView {
     
-    private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
-    private var hotels: [Hotel] = []
-    private let networkManager = NetworkManager.shared
-    
     private let ratingView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 5
@@ -77,7 +73,6 @@ final class MainInformationView1: UIView {
         let label = UILabel()
         label.text = "За тур с перелётом"
         label.textAlignment = .left
-        label.textColor = .black
         label.font = UIFont(name: "SF Pro Display", size: 16)
         label.textColor = UIColor(named: "customGray")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +81,6 @@ final class MainInformationView1: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fetchHotel()
         setupUI()
     }
     
@@ -94,15 +88,11 @@ final class MainInformationView1: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func fetchHotel() {
-        networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
-            switch result {
-            case .success(let hotel):
-                self?.hotels.append(hotel)
-            case .failure(let error):
-                print(error)
-            }
-        }
+    func configure(with data: Hotel) {
+        rateLabel.text = String(data.rating) + " " + data.rating_name
+        addressButton.titleLabel?.text = data.adress
+        hotelPriceLabel.text = "От " + String(data.minimal_price) + " ₽"
+        forWayWithFlyLabel.text = data.price_for_it
     }
 }
 
@@ -113,10 +103,7 @@ extension MainInformationView1 {
         ratingView.addSubview(starIcon)
         ratingView.addSubview(rateLabel)
         
-        self.addSubview(hotelNameLabel)
-        self.addSubview(addressButton)
-        self.addSubview(hotelPriceLabel)
-        self.addSubview(forWayWithFlyLabel)
+        setupSubviews(hotelNameLabel, addressButton, hotelPriceLabel, forWayWithFlyLabel)
         
         NSLayoutConstraint.activate([
             ratingView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),

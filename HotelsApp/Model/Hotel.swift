@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Hotel: Codable {
+struct Hotel: Decodable {
     let id: Int
     let name: String
     let adress: String
@@ -20,7 +20,7 @@ struct Hotel: Codable {
 
 }
 
-struct AboutTheHotel: Codable {
+struct AboutTheHotel: Decodable {
     let description: String
     let peculiarities: [String]
 }

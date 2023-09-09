@@ -9,11 +9,32 @@ import UIKit
 
 class ReservationViewController: UIViewController {
     
+    private let urlAPI = "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"
+    private let networkManager = NetworkManager.shared
+    
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
     private let mainInformationView = MainInformationView2()
     private let reservationDataView = ReservationDataView()
+    private let personalInformationView = PersonalInformationView()
+    
+    private lazy var payRoomButton: UIButton = {
+        var attributes = AttributeContainer()
+        attributes.font = UIFont(name: "SF Pro Display", size: 16)
+        
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.attributedTitle = AttributedString("Оплатить 198 036 ₽", attributes: attributes)
+        
+        let button = UIButton(
+            configuration: buttonConfiguration,
+            primaryAction: UIAction
+            { [unowned self] _ in PayButton() }
+        )
+        button.titleLabel?.textAlignment = .center
+        
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +45,10 @@ class ReservationViewController: UIViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(mainInformationView)
         contentView.addSubview(reservationDataView)
+        contentView.addSubview(personalInformationView)
+        contentView.addSubview(payRoomButton)
         
+        fetchReservationInfo()
         initialSettings()
         setupUI()
     }
@@ -40,8 +64,27 @@ class ReservationViewController: UIViewController {
         )
         navigationController?.navigationBar.topItem?.backBarButtonItem = newBackButton
     }
-
+    
+    private func PayButton() {
+        let vc = FinalViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: - Networking
+    private func fetchReservationInfo() {
+        networkManager.fetchData(Reservation.self, from: URL(string: urlAPI)) { [weak self] result in
+            switch result {
+            case .success(let reservationInfo):
+                self?.mainInformationView.configure(data: reservationInfo)
+                self?.reservationDataView.configure(data: reservationInfo)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
+
+
 
 //MARK: - SetupUI Elements
 extension ReservationViewController {
@@ -50,6 +93,8 @@ extension ReservationViewController {
         setupContentViewConstraints()
         setupMainInformationViewConstraints()
         setupReservationDataViewConstraints()
+        setupPersonalInformationViewConstraints()
+        setupPayRoomButtonConstraints()
     }
     
     private func setupScrollViewConstraints() {
@@ -92,6 +137,26 @@ extension ReservationViewController {
             reservationDataView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             reservationDataView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             reservationDataView.heightAnchor.constraint(equalToConstant: 280)
+        ])
+    }
+    
+    private func setupPersonalInformationViewConstraints() {
+        personalInformationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            personalInformationView.topAnchor.constraint(equalTo: reservationDataView.bottomAnchor, constant: 16),
+            personalInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            personalInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            personalInformationView.heightAnchor.constraint(equalToConstant: 232)
+        ])
+    }
+    
+    private func setupPayRoomButtonConstraints() {
+        payRoomButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            payRoomButton.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor, constant: 16),
+            payRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            payRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            payRoomButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     

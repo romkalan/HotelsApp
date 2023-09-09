@@ -10,7 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
-    private var hotel: Hotel!
+    private var hotel: Hotel?
     private var image: UIImage!
     private let networkManager = NetworkManager.shared
     
@@ -87,8 +87,6 @@ final class ViewController: UIViewController {
         
         setupUI()
         fetchHotel()
-        
-//        print(self.hotel.about_the_hotel.description)
     }
     
     private func chooseRoom() {
@@ -101,8 +99,8 @@ final class ViewController: UIViewController {
         networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
             switch result {
             case .success(let hotel):
-                self?.hotel = hotel
-                print(hotel)
+                self?.mainInformationView.configure(with: hotel)
+                self?.additionInformationView.configure(with: hotel)
                 self?.collectionView.reloadData()
             case .failure(let error):
                 print(error)
@@ -182,7 +180,7 @@ extension ViewController {
     
     private func setupChooseRoomButton() {
         NSLayoutConstraint.activate([
-            chooseRoomButton.topAnchor.constraint(equalTo: additionInformationView.bottomAnchor, constant: 8),
+            chooseRoomButton.topAnchor.constraint(equalTo: additionInformationView.bottomAnchor, constant: 16),
             chooseRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             chooseRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             chooseRoomButton.heightAnchor.constraint(equalToConstant: 48),

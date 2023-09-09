@@ -26,7 +26,6 @@ class RoomsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSettings()
-        fetchRooms()
         setupUI()
     }
     
@@ -34,14 +33,14 @@ class RoomsViewController: UIViewController {
         networkManager.fetchData(Rooms.self, from: urlAPI) { [weak self] result in
             switch result {
             case .success(let rooms):
-                self?.rooms = rooms
-                print(rooms)
+                let room = rooms.rooms[0]
                 self?.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
     private func reservationButton() {
         let vc = ReservationViewController()
         if !(self.navigationController!.topViewController! is ReservationViewController) {
@@ -89,7 +88,8 @@ extension RoomsViewController: UITableViewDelegate, UITableViewDataSource {
         let action = UIAction { [unowned self] _ in reservationButton() }
         cell.detailRoomButton.addAction(action, for: .touchUpInside)
 //        let room = rooms.rooms[indexPath.row]
-//        cell.countOfNightsLabel.text = room.name
+//        cell.configure(with: room)
+
         cell.selectionStyle = .none
         return cell
     }

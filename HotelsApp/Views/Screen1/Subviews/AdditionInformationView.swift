@@ -37,7 +37,7 @@ class AdditionInformationView: UIView {
     
     private lazy var aboutHotelInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Отель VIP-класса с собственными гольф полями. Высокий уровнь сервиса. Рекомендуем для респектабельного отдыха. Отель принимает гостей от 18 лет!"
+//        label.text = ""
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "SF Pro Display", size: 16)
@@ -69,26 +69,31 @@ class AdditionInformationView: UIView {
     private func setupUIWith(text: String) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "SF Pro Display", size: 16)
         label.textColor = UIColor(named: "grayText")
         label.backgroundColor = UIColor(named: "backgroundGray")
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }
+    
+    func configure(with data: Hotel) {
+        aboutHotelInfoLabel.text = data.about_the_hotel.description
+        advantage1.text = data.about_the_hotel.peculiarities[0]
+        advantage2.text = data.about_the_hotel.peculiarities[1]
+        advantage3.text = data.about_the_hotel.peculiarities[2]
+        advantage4.text = data.about_the_hotel.peculiarities[3]
     }
     
 }
 
 extension AdditionInformationView {
     private func setupUI() {
-        self.addSubview(aboutHotelLabel)
-        self.addSubview(advantage1)
-        self.addSubview(advantage2)
-        self.addSubview(advantage3)
-        self.addSubview(advantage4)
-        self.addSubview(aboutHotelInfoLabel)
-        self.addSubview(tableView)
+        setupSubviews(aboutHotelLabel, advantage1, advantage2, advantage3,
+                      advantage4, aboutHotelInfoLabel, tableView
+        )
         
         NSLayoutConstraint.activate([
             aboutHotelLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
@@ -98,17 +103,25 @@ extension AdditionInformationView {
             
             advantage1.topAnchor.constraint(equalTo: aboutHotelLabel.bottomAnchor, constant: 24),
             advantage1.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
+            advantage1.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+            advantage1.heightAnchor.constraint(equalToConstant: 40),
             
             advantage2.topAnchor.constraint(equalTo: aboutHotelLabel.bottomAnchor, constant: 24),
             advantage2.leftAnchor.constraint(equalTo: advantage1.rightAnchor, constant: 24),
+            advantage2.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+            advantage2.heightAnchor.constraint(equalToConstant: 40),
             
             advantage3.topAnchor.constraint(equalTo: advantage1.bottomAnchor, constant: 8),
             advantage3.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
+            advantage3.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+            advantage3.heightAnchor.constraint(equalToConstant: 40),
             
             advantage4.topAnchor.constraint(equalTo: advantage2.bottomAnchor, constant: 8),
             advantage4.leftAnchor.constraint(equalTo: advantage3.rightAnchor, constant: 24),
+            advantage4.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+            advantage4.heightAnchor.constraint(equalToConstant: 40),
             
-            aboutHotelInfoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 136),
+            aboutHotelInfoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 166),
             aboutHotelInfoLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
             aboutHotelInfoLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
             

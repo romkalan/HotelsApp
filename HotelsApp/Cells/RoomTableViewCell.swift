@@ -138,8 +138,14 @@ class RoomTableViewCell: UITableViewCell {
         return label
     }
     
-    public func configure(with image: UIImage, and text: String, and secondaryText: String) {
+    func configure(with data: Room) {
+        aboutRoomLabel.text = data.name
+        advantage1.text = data.peculiarities[0]
+        advantage2.text = data.peculiarities[1]
+        roomPriceLabel.text = "От " + String(data.price) + " ₽"
+        countOfNightsLabel.text = data.price_per
     }
+    
     // MARK: - NSLayoutConstraint
     private func setupUI() {
         contentView.addSubview(collectionView)
