@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+final class TableViewCell: UITableViewCell {
     
     static let reuseID = "row"
     
@@ -19,24 +19,21 @@ class TableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let mainLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.text = "111"
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let mainLabel = UILabel(
+        text: "",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 16),
+        alignment: .left
+    )
     
-    private let secondaryLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.text = "111"
-        label.font = UIFont(name: "SF Pro Display", size: 14)
-        label.textColor = UIColor(named: "grayText")
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let secondaryLabel = UILabel(
+        text: "",
+        textColor: UIColor(named: "grayText"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 14),
+        alignment: .left
+    )
     
     private let nextIcon: UIImageView = {
         let imageView = UIImageView()
@@ -64,13 +61,21 @@ class TableViewCell: UITableViewCell {
         self.mainLabel.text = text
         self.secondaryLabel.text = secondaryText
     }
+}
+private extension TableViewCell {
     
-    private func setupUI() {
-        contentView.addSubview(image)
-        contentView.addSubview(mainLabel)
-        contentView.addSubview(secondaryLabel)
-        contentView.addSubview(nextIcon)
-        
+    func setupUI() {
+        add(views: image, mainLabel, secondaryLabel, nextIcon)
+        setConstraints()
+    }
+    
+    func add(views: UIView...) {
+        views.forEach { view in
+            contentView.addSubview(view)
+        }
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: contentView.topAnchor),
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -94,5 +99,5 @@ class TableViewCell: UITableViewCell {
             nextIcon.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
-
 }
+

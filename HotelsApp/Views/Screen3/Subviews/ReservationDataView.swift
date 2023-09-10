@@ -62,14 +62,13 @@ final class ReservationDataView: UIView {
     }
     
     private func setup(_ text: String, and color: UIColor) -> UILabel {
-        let label = UILabel()
-        label.text = text
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.textColor = color
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel(
+            text: text,
+            textColor: color,
+            backgroundColor: .clear,
+            font: UIFont(name: "SF Pro Display", size: 16),
+            alignment: .left
+        )
         return label
     }
     
@@ -83,13 +82,22 @@ final class ReservationDataView: UIView {
     }
 }
 
-extension ReservationDataView {
-        private func setupUI() {
-        setupSubviews(flyPositionInfo1, flyInfo1, flyPositionInfo2, flyInfo2, flyPositionInfo3,
-                      flyInfo3, flyPositionInfo4, flyInfo4, flyPositionInfo5, flyInfo5,
-                      flyPositionInfo6, flyInfo6, flyPositionInfo7, flyInfo7
+//MARK: - SetupUI with Constraints
+private extension ReservationDataView {
+    func setupUI() {
+        addViews()
+        setConstraints()
+    }
+    
+    func addViews() {
+        setupSubviews(
+            flyPositionInfo1, flyInfo1, flyPositionInfo2, flyInfo2, flyPositionInfo3,
+            flyInfo3, flyPositionInfo4, flyInfo4, flyPositionInfo5, flyInfo5,
+            flyPositionInfo6, flyInfo6, flyPositionInfo7, flyInfo7
         )
-       
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             flyPositionInfo1.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             flyPositionInfo1.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -146,7 +154,6 @@ extension ReservationDataView {
             flyInfo7.topAnchor.constraint(equalTo: flyInfo6.bottomAnchor, constant: 16),
             flyInfo7.leftAnchor.constraint(equalTo: flyPositionInfo7.rightAnchor, constant: 16),
             flyInfo7.widthAnchor.constraint(equalToConstant: 205),
-            
         ])
     }
 }

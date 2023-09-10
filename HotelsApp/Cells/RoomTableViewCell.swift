@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoomTableViewCell: UITableViewCell {
+final class RoomTableViewCell: UITableViewCell {
     static let reuseID = "room"
     
     lazy var collectionView: UICollectionView = {
@@ -35,7 +35,7 @@ class RoomTableViewCell: UITableViewCell {
     
     let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = 5
+        pageControl.numberOfPages = 3
         pageControl.backgroundColor = .white
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.currentPageIndicatorTintColor = .black
@@ -145,57 +145,63 @@ class RoomTableViewCell: UITableViewCell {
         roomPriceLabel.text = "От " + String(data.price) + " ₽"
         countOfNightsLabel.text = data.price_per
     }
-    
-    // MARK: - NSLayoutConstraint
-    private func setupUI() {
-        contentView.addSubview(collectionView)
-        contentView.addSubview(pageControl)
-        contentView.addSubview(aboutRoomLabel)
-        contentView.addSubview(advantage1)
-        contentView.addSubview(advantage2)
-        contentView.addSubview(detailsInfoButton)
-        contentView.addSubview(roomPriceLabel)
-        contentView.addSubview(countOfNightsLabel)
-        contentView.addSubview(detailRoomButton)
-        
-            NSLayoutConstraint.activate([
-                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-                collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-                collectionView.widthAnchor.constraint(equalToConstant: 343),
-                collectionView.heightAnchor.constraint(equalToConstant: 257),
-                
-                pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
-                pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -8),
-                
-                aboutRoomLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
-                aboutRoomLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                aboutRoomLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-                
-                advantage1.topAnchor.constraint(equalTo: aboutRoomLabel.bottomAnchor, constant: 24),
-                advantage1.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 24),
-                
-                advantage2.topAnchor.constraint(equalTo: aboutRoomLabel.bottomAnchor, constant: 24),
-                advantage2.leftAnchor.constraint(equalTo: advantage1.rightAnchor, constant: 24),
-                                
-                detailsInfoButton.topAnchor.constraint(equalTo: advantage1.bottomAnchor, constant: 16),
-                detailsInfoButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                detailsInfoButton.heightAnchor.constraint(equalToConstant: 29),
-                
-                roomPriceLabel.topAnchor.constraint(equalTo: detailsInfoButton.bottomAnchor, constant: 16),
-                roomPriceLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-                
-                countOfNightsLabel.centerYAnchor.constraint(equalTo: roomPriceLabel.centerYAnchor),
-                countOfNightsLabel.leftAnchor.constraint(equalTo: roomPriceLabel.rightAnchor, constant: 16),
-                
-                detailRoomButton.topAnchor.constraint(equalTo: roomPriceLabel.bottomAnchor, constant: 16),
-                detailRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                detailRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-                detailRoomButton.heightAnchor.constraint(equalToConstant: 48),
-            ])
-    }
-
 }
+
+// MARK: - NSLayoutConstraint
+private extension RoomTableViewCell {
+    func setupUI() {
+        add(views:
+                collectionView, pageControl, aboutRoomLabel, advantage1, advantage2,
+                detailsInfoButton, roomPriceLabel, countOfNightsLabel, detailRoomButton
+        )
+        setConstraints()
+    }
+    
+    func add(views: UIView...) {
+        views.forEach { view in
+            contentView.addSubview(view)
+        }
+    }
+    
+    func setConstraints() {
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            collectionView.widthAnchor.constraint(equalToConstant: 343),
+            collectionView.heightAnchor.constraint(equalToConstant: 257),
+            
+            pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -8),
+            
+            aboutRoomLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
+            aboutRoomLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            aboutRoomLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            
+            advantage1.topAnchor.constraint(equalTo: aboutRoomLabel.bottomAnchor, constant: 24),
+            advantage1.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 24),
+            
+            advantage2.topAnchor.constraint(equalTo: aboutRoomLabel.bottomAnchor, constant: 24),
+            advantage2.leftAnchor.constraint(equalTo: advantage1.rightAnchor, constant: 24),
+            
+            detailsInfoButton.topAnchor.constraint(equalTo: advantage1.bottomAnchor, constant: 16),
+            detailsInfoButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            detailsInfoButton.heightAnchor.constraint(equalToConstant: 29),
+            
+            roomPriceLabel.topAnchor.constraint(equalTo: detailsInfoButton.bottomAnchor, constant: 16),
+            roomPriceLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            
+            countOfNightsLabel.centerYAnchor.constraint(equalTo: roomPriceLabel.centerYAnchor),
+            countOfNightsLabel.leftAnchor.constraint(equalTo: roomPriceLabel.rightAnchor, constant: 16),
+            
+            detailRoomButton.topAnchor.constraint(equalTo: roomPriceLabel.bottomAnchor, constant: 16),
+            detailRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            detailRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            detailRoomButton.heightAnchor.constraint(equalToConstant: 48),
+        ])
+    }
+}
+
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

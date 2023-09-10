@@ -24,33 +24,31 @@ final class MainInformationView1: UIView {
         return icon
     }()
     
-    private lazy var rateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "5 Превосходно"
-        label.textAlignment = .left
-        label.textColor = .systemYellow
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.textColor = UIColor(named: "customYellow")
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let rateLabel = UILabel(
+        text: "5 Превосходно",
+        textColor: UIColor(named: "customYellow"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 16),
+        alignment: .left
+    )
     
-    private let hotelNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Steigenberger Makadi"
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 22)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let hotelNameLabel = UILabel(
+        text: "Steigenberger Makadi",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 22),
+        alignment: .left
+    )
     
     private let addressButton: UIButton = {
         var attributes = AttributeContainer()
         attributes.font = UIFont.boldSystemFont(ofSize: 14)
         
         var buttonConfiguration = UIButton.Configuration.plain()
-        buttonConfiguration.attributedTitle = AttributedString("Madinat Makadi, Safaga Road, Makadi Bay, Египет", attributes: attributes)
+        buttonConfiguration.attributedTitle = AttributedString(
+            "Madinat Makadi, Safaga Road, Makadi Bay, Египет",
+            attributes: attributes
+        )
         
         let button = UIButton(configuration: buttonConfiguration)
         button.titleLabel?.textAlignment = .left
@@ -59,25 +57,21 @@ final class MainInformationView1: UIView {
         return button
     }()
     
-    private var hotelPriceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "от 134 673 ₽"
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let hotelPriceLabel = UILabel(
+        text: "111",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 30),
+        alignment: .left
+    )
     
-    private var forWayWithFlyLabel: UILabel = {
-        let label = UILabel()
-        label.text = "За тур с перелётом"
-        label.textAlignment = .left
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.textColor = UIColor(named: "customGray")
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let forWayWithFlyLabel = UILabel(
+        text: "За тур с перелетом",
+        textColor: UIColor(named: "customGray"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 16),
+        alignment: .left
+    )
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,14 +91,23 @@ final class MainInformationView1: UIView {
 }
 
 // MARK: SetupUI with Constraints
-extension MainInformationView1 {
-    private func setupUI() {
+private extension MainInformationView1 {
+    func setupUI() {
+        addViews()
+        setConstraints()
+    }
+    
+    func addViews() {
         self.addSubview(ratingView)
         ratingView.addSubview(starIcon)
         ratingView.addSubview(rateLabel)
         
-        setupSubviews(hotelNameLabel, addressButton, hotelPriceLabel, forWayWithFlyLabel)
-        
+        setupSubviews(
+            hotelNameLabel, addressButton, hotelPriceLabel, forWayWithFlyLabel
+        )
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             ratingView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             ratingView.leftAnchor.constraint(equalTo: self.leftAnchor),

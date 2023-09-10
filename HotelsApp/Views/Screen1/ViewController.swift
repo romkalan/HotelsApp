@@ -72,21 +72,10 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Отель"
-        
-        view.addSubview(scrollView)
-        scrollView.backgroundColor = .systemBackground
-        scrollView.showsVerticalScrollIndicator = false
-        
-        scrollView.addSubview(contentView)
-    
-        contentView.addSubview(collectionView)
-        contentView.addSubview(pageControl)
-        contentView.addSubview(mainInformationView)
-        contentView.addSubview(additionInformationView)
-        contentView.addSubview(chooseRoomButton)
-        
         setupUI()
         fetchHotel()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.backgroundColor = .systemBackground
     }
     
     private func chooseRoom() {
@@ -110,76 +99,63 @@ final class ViewController: UIViewController {
 }
 
 // MARK: - SetupUI
-extension ViewController {
-    private func setupUI() {
-        setupScrollViewConstraints()
-        setupContentViewConstraints()
-        setupCollectionViewConstraints()
-        setupPageControlConstraints()
-        setupMainInformationViewConstraints()
-        setupAdditionInformationViewConstraints()
-        setupChooseRoomButton()
+private extension ViewController {
+    func setupUI() {
+        addViews()
+        setConstraints()
     }
     
-    private func setupScrollViewConstraints() {
+    func addViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(pageControl)
+        contentView.addSubview(mainInformationView)
+        contentView.addSubview(additionInformationView)
+        contentView.addSubview(chooseRoomButton)
+    }
+    
+    func setConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        mainInformationView.translatesAutoresizingMaskIntoConstraints = false
+        additionInformationView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height)
-        ])
-    }
-    private func setupContentViewConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80)
-        ])
-    }
-    private func setupCollectionViewConstraints() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80),
+            
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             collectionView.widthAnchor.constraint(equalToConstant: 343),
-            collectionView.heightAnchor.constraint(equalToConstant: 257)
-        ])
-    }
-    private func setupPageControlConstraints() {
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            collectionView.heightAnchor.constraint(equalToConstant: 257),
+            
             pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
             pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -8),
-        ])
-    }
-    private func setupMainInformationViewConstraints() {
-        mainInformationView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            
             mainInformationView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
             mainInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             mainInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            mainInformationView.heightAnchor.constraint(equalToConstant: 160)
-        ])
-    }
-    private func setupAdditionInformationViewConstraints() {
-        additionInformationView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            mainInformationView.heightAnchor.constraint(equalToConstant: 160),
+            
             additionInformationView.topAnchor.constraint(equalTo: mainInformationView.bottomAnchor, constant: 8),
             additionInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             additionInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            additionInformationView.heightAnchor.constraint(equalToConstant: 428)
-        ])
-    }
-    
-    private func setupChooseRoomButton() {
-        NSLayoutConstraint.activate([
+            additionInformationView.heightAnchor.constraint(equalToConstant: 428),
+            
             chooseRoomButton.topAnchor.constraint(equalTo: additionInformationView.bottomAnchor, constant: 16),
             chooseRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             chooseRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),

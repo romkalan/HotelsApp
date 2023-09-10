@@ -14,17 +14,13 @@ final class PersonalInformationView: UIView {
         pattern: "[\\+\\s-\\(\\)]",
         options: .caseInsensitive
     )
-    
-    private lazy var typeOfNumberLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Информация о покупателе"
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 22)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let typeOfNumberLabel = UILabel(
+        text: "Информация о покупателе",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 22),
+        alignment: .left
+    )
     
     private lazy var phoneNumberTextField: UITextField = {
         let textField = UITextField()
@@ -47,16 +43,13 @@ final class PersonalInformationView: UIView {
         return textField
     }()
     
-    private lazy var message: UILabel = {
-        let label = UILabel()
-        label.text = "Эти данные никому не передаются. После оплаты мы вышлем чек на указанный вами номер и почту"
-        label.textAlignment = .left
-        label.textColor = UIColor(named: "grayText")
-        label.font = UIFont(name: "SF Pro Display", size: 14)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let message = UILabel(
+        text: "Эти данные никому не передаются. После оплаты мы вышлем чек на указанный вами номер и почту",
+        textColor: UIColor(named: "grayText"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 14),
+        alignment: .left
+    )
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -106,22 +99,42 @@ final class PersonalInformationView: UIView {
     }
 }
 
-extension PersonalInformationView {
-    private func setupUI() {
+//MARK: - UITextFieldDelegate
+extension PersonalInformationView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let fullString = (textField.text ?? "") + string
+        textField.text = format(
+            phoneNumber: fullString,
+            shouldRemoveLastDigit: range.length == 1
+        )
+        return false
+    }
+}
+
+//MARK: - SetupUI with Constraints
+private extension PersonalInformationView {
+    func setupUI() {
+        addViews()
+        setConstraints()
+    }
+    
+    func addViews() {
         setupSubviews(typeOfNumberLabel, phoneNumberTextField, emailTextField, message)
-        
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             typeOfNumberLabel.topAnchor.constraint(equalTo: self.topAnchor),
             typeOfNumberLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
             typeOfNumberLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
             
             phoneNumberTextField.topAnchor.constraint(equalTo: typeOfNumberLabel.bottomAnchor, constant: 32),
-            phoneNumberTextField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
-            phoneNumberTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8),
+            phoneNumberTextField.leftAnchor.constraint(equalTo: self.leftAnchor),
+            phoneNumberTextField.rightAnchor.constraint(equalTo: self.rightAnchor),
             
             emailTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 16),
-            emailTextField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
-            emailTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8),
+            emailTextField.leftAnchor.constraint(equalTo: self.leftAnchor),
+            emailTextField.rightAnchor.constraint(equalTo: self.rightAnchor),
             
             message.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16),
             message.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -130,10 +143,3 @@ extension PersonalInformationView {
     }
 }
 
-extension PersonalInformationView: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let fullString = (textField.text ?? "") + string
-        textField.text = format(phoneNumber: fullString, shouldRemoveLastDigit: range.length == 1)
-        return false
-    }
-}

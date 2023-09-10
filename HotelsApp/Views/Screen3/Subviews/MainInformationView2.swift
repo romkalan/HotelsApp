@@ -24,33 +24,31 @@ final class MainInformationView2: UIView {
         return icon
     }()
     
-    private lazy var rateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "5 Превосходно"
-        label.textAlignment = .left
-        label.textColor = .systemYellow
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.textColor = UIColor(named: "customYellow")
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let rateLabel = UILabel(
+        text: "",
+        textColor: UIColor(named: "customYellow"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 16),
+        alignment: .left
+    )
     
-    private let hotelNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Steigenberger Makadi"
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 22)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let hotelNameLabel = UILabel(
+        text: "Steigenberg Makadi",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 22),
+        alignment: .left
+    )
     
     private let addressButton: UIButton = {
         var attributes = AttributeContainer()
         attributes.font = UIFont.boldSystemFont(ofSize: 14)
         
         var buttonConfiguration = UIButton.Configuration.plain()
-        buttonConfiguration.attributedTitle = AttributedString("Madinat Makadi, Safaga Road, Makadi Bay, Египет", attributes: attributes)
+        buttonConfiguration.attributedTitle = AttributedString(
+            "Madinat Makadi, Safaga Road, Makadi Bay, Египет",
+            attributes: attributes
+        )
         
         let button = UIButton(configuration: buttonConfiguration)
         button.titleLabel?.textAlignment = .left
@@ -75,12 +73,19 @@ final class MainInformationView2: UIView {
 }
 
 // MARK: SetupUI with Constraints
-extension MainInformationView2 {
-    private func setupUI() {
+private extension MainInformationView2 {
+    func setupUI() {
+        addViews()
+        setConstraints()
+    }
+    
+    func addViews() {
         setupSubviews(ratingView, hotelNameLabel, addressButton)
         ratingView.addSubview(starIcon)
         ratingView.addSubview(rateLabel)
-        
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             ratingView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             ratingView.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -101,7 +106,6 @@ extension MainInformationView2 {
             
             addressButton.topAnchor.constraint(equalTo: hotelNameLabel.bottomAnchor, constant: 10),
             addressButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: -12),
-            
         ])
     }
 }

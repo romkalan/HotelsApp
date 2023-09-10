@@ -9,16 +9,13 @@ import UIKit
 
 final class FinalViewController: UIViewController {
     
-    private lazy var finalMessage: UILabel = {
-        let label = UILabel()
-        label.text = "Ваш заказ принят в работу"
-        label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 22)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let finalMessage = UILabel(
+        text: "Ваш заказ принят в работу",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 22),
+        alignment: .center
+    )
     
     private let image: UIImageView = {
         let image = UIImageView()
@@ -27,16 +24,13 @@ final class FinalViewController: UIViewController {
         return image
     }()
     
-    private lazy var additionMessage: UILabel = {
-        let label = UILabel()
-        label.text = "Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление."
-        label.textAlignment = .center
-        label.textColor = UIColor(named: "grayText")
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let additionMessage = UILabel(
+        text: "Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.",
+        textColor: UIColor(named: "grayText"),
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 14),
+        alignment: .center
+    )
     
     private lazy var okButton: UIButton = {
         var attributes = AttributeContainer()
@@ -77,7 +71,7 @@ final class FinalViewController: UIViewController {
         navigationController?.navigationBar.topItem?.backBarButtonItem = newBackButton
     }
 }
-
+//MARK: - SetupUI with Constraints
 private extension FinalViewController {
     func setupUI() {
         addViews()

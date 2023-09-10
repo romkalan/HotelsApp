@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReservationViewController: UIViewController {
+final class ReservationViewController: UIViewController {
     
     private let urlAPI = "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"
     private let networkManager = NetworkManager.shared
@@ -18,6 +18,8 @@ class ReservationViewController: UIViewController {
     private let mainInformationView = MainInformationView2()
     private let reservationDataView = ReservationDataView()
     private let personalInformationView = PersonalInformationView()
+    private let touristInfoView = TouristInfoView()
+    private let resumePriceInfoView = ResumePriceInfoView()
     
     private lazy var payRoomButton: UIButton = {
         var attributes = AttributeContainer()
@@ -38,19 +40,14 @@ class ReservationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
-        scrollView.backgroundColor = .systemBackground
-        scrollView.showsVerticalScrollIndicator = false
-        
-        scrollView.addSubview(contentView)
-        contentView.addSubview(mainInformationView)
-        contentView.addSubview(reservationDataView)
-        contentView.addSubview(personalInformationView)
-        contentView.addSubview(payRoomButton)
-        
         fetchReservationInfo()
         initialSettings()
         setupUI()
+    }
+    
+    private func PayButton() {
+        let vc = FinalViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func initialSettings() {
@@ -65,10 +62,6 @@ class ReservationViewController: UIViewController {
         navigationController?.navigationBar.topItem?.backBarButtonItem = newBackButton
     }
     
-    private func PayButton() {
-        let vc = FinalViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     // MARK: - Networking
     private func fetchReservationInfo() {
@@ -77,6 +70,8 @@ class ReservationViewController: UIViewController {
             case .success(let reservationInfo):
                 self?.mainInformationView.configure(data: reservationInfo)
                 self?.reservationDataView.configure(data: reservationInfo)
+                self?.resumePriceInfoView.configure(data: reservationInfo)
+                self?.payRoomButton.titleLabel?.text = "Оплатить " + String(reservationInfo.tour_price + reservationInfo.service_charge + reservationInfo.service_charge) + " ₽"
             case .failure(let error):
                 print(error)
             }
@@ -84,80 +79,78 @@ class ReservationViewController: UIViewController {
     }
 }
 
-
-
-//MARK: - SetupUI Elements
-extension ReservationViewController {
-    private func setupUI() {
-        setupScrollViewConstraints()
-        setupContentViewConstraints()
-        setupMainInformationViewConstraints()
-        setupReservationDataViewConstraints()
-        setupPersonalInformationViewConstraints()
-        setupPayRoomButtonConstraints()
+//MARK: - SetupUI with Constraints
+private extension ReservationViewController {
+    func setupUI() {
+        addViews()
+        scrollView.backgroundColor = .systemBackground
+        setConstraints()
     }
     
-    private func setupScrollViewConstraints() {
+    func addViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(mainInformationView)
+        contentView.addSubview(reservationDataView)
+        contentView.addSubview(personalInformationView)
+        contentView.addSubview(touristInfoView)
+        contentView.addSubview(resumePriceInfoView)
+        contentView.addSubview(payRoomButton)
+        
+    }
+    
+    func setConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        mainInformationView.translatesAutoresizingMaskIntoConstraints = false
+        reservationDataView.translatesAutoresizingMaskIntoConstraints = false
+        personalInformationView.translatesAutoresizingMaskIntoConstraints = false
+        payRoomButton.translatesAutoresizingMaskIntoConstraints = false
+        touristInfoView.translatesAutoresizingMaskIntoConstraints = false
+        resumePriceInfoView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height)
-        ])
-    }
-    
-    private func setupContentViewConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80)
-        ])
-    }
-    
-    private func setupMainInformationViewConstraints() {
-        mainInformationView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 350),
+            
             mainInformationView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             mainInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            mainInformationView.heightAnchor.constraint(equalToConstant: 120)
-        ])
-    }
-    
-    private func setupReservationDataViewConstraints() {
-        reservationDataView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            mainInformationView.heightAnchor.constraint(equalToConstant: 120),
+            
             reservationDataView.topAnchor.constraint(equalTo: mainInformationView.bottomAnchor),
             reservationDataView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             reservationDataView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            reservationDataView.heightAnchor.constraint(equalToConstant: 280)
-        ])
-    }
-    
-    private func setupPersonalInformationViewConstraints() {
-        personalInformationView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            reservationDataView.heightAnchor.constraint(equalToConstant: 280),
+            
             personalInformationView.topAnchor.constraint(equalTo: reservationDataView.bottomAnchor, constant: 16),
             personalInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             personalInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            personalInformationView.heightAnchor.constraint(equalToConstant: 232)
-        ])
-    }
-    
-    private func setupPayRoomButtonConstraints() {
-        payRoomButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            payRoomButton.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor, constant: 16),
+            personalInformationView.heightAnchor.constraint(equalToConstant: 190),
+            
+            touristInfoView.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor),
+            touristInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            touristInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            touristInfoView.heightAnchor.constraint(equalToConstant: CGFloat(touristInfoView.cellCount * 63)),
+            
+            resumePriceInfoView.topAnchor.constraint(equalTo: touristInfoView.bottomAnchor, constant: 16),
+            resumePriceInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            resumePriceInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            
+            payRoomButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             payRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             payRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             payRoomButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
-    
 }

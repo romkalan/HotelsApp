@@ -7,17 +7,15 @@
 
 import UIKit
 
-class AdditionInformationView: UIView {
+final class AdditionInformationView: UIView {
 
-    private lazy var aboutHotelLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Об отеле"
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 22)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let aboutHotelLabel = UILabel(
+        text: "Об отеле",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 22),
+        alignment: .left
+    )
     
     private lazy var advantage1: UILabel = {
         setupUIWith(text: "3-я линия")
@@ -35,16 +33,13 @@ class AdditionInformationView: UIView {
         setupUIWith(text: "1 км до пляжа")
     }()
     
-    private lazy var aboutHotelInfoLabel: UILabel = {
-        let label = UILabel()
-//        label.text = ""
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let aboutHotelInfoLabel = UILabel(
+        text: "",
+        textColor: .black,
+        backgroundColor: .clear,
+        font: UIFont(name: "SF Pro Display", size: 16),
+        alignment: .left
+    )
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
@@ -67,15 +62,13 @@ class AdditionInformationView: UIView {
     }
     
     private func setupUIWith(text: String) -> UILabel {
-        let label = UILabel()
-        label.text = text
-        label.textAlignment = .left
-        label.textColor = .black
-        label.font = UIFont(name: "SF Pro Display", size: 16)
-        label.textColor = UIColor(named: "grayText")
-        label.backgroundColor = UIColor(named: "backgroundGray")
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel(
+            text: text,
+            textColor: UIColor(named: "grayText"),
+            backgroundColor: UIColor(named: "backgroundGray") ?? .black,
+            font: UIFont(name: "SF Pro Display", size: 16),
+            alignment: .left
+        )
         return label
     }
     
@@ -86,15 +79,22 @@ class AdditionInformationView: UIView {
         advantage3.text = data.about_the_hotel.peculiarities[2]
         advantage4.text = data.about_the_hotel.peculiarities[3]
     }
-    
 }
-
-extension AdditionInformationView {
-    private func setupUI() {
-        setupSubviews(aboutHotelLabel, advantage1, advantage2, advantage3,
-                      advantage4, aboutHotelInfoLabel, tableView
+//MARK: - SetupUI with Constraints
+private extension AdditionInformationView {
+    func setupUI() {
+        addViews()
+        setConstraints()
+    }
+    
+    func addViews() {
+        setupSubviews(
+            aboutHotelLabel, advantage1, advantage2, advantage3,
+            advantage4, aboutHotelInfoLabel, tableView
         )
-        
+    }
+    
+    func setConstraints() {
         NSLayoutConstraint.activate([
             aboutHotelLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             aboutHotelLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -130,7 +130,6 @@ extension AdditionInformationView {
             tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
             tableView.widthAnchor.constraint(equalToConstant: 343),
             tableView.heightAnchor.constraint(equalToConstant: 200),
-            
         ])
     }
 }
@@ -164,5 +163,4 @@ extension AdditionInformationView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
     }
-    
 }
