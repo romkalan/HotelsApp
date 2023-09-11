@@ -76,6 +76,7 @@ final class ViewController: UIViewController {
         fetchHotel()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = .systemBackground
+        scrollView.alwaysBounceVertical = true
     }
     
     private func chooseRoom() {
@@ -128,14 +129,12 @@ private extension ViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 80),
             
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
@@ -160,6 +159,7 @@ private extension ViewController {
             chooseRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             chooseRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             chooseRoomButton.heightAnchor.constraint(equalToConstant: 48),
+            chooseRoomButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
 }
