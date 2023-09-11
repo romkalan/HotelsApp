@@ -9,7 +9,7 @@ import UIKit
 
 final class HeaderForTableView: UIView {
     
-    private lazy var showInfoButton: UIButton = {
+    lazy var showInfoButton: UIButton = {
         var attributes = AttributeContainer()
         attributes.font = UIFont(name: "SF Pro Display", size: 16)
         

@@ -40,11 +40,9 @@
 		AD5CECC82AAB106700FA5B67 /* ReservationDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECC72AAB106700FA5B67 /* ReservationDataView.swift */; };
 		AD5CECCA2AAB32C200FA5B67 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECC92AAB32C200FA5B67 /* PersonalInformationView.swift */; };
 		AD5CECCC2AAB35EA00FA5B67 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECCB2AAB35EA00FA5B67 /* UIView.swift */; };
-		AD5CECCE2AAB5B6400FA5B67 /* TouristInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECCD2AAB5B6400FA5B67 /* TouristInfoView.swift */; };
 		AD5CECD02AAB5CC400FA5B67 /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECCF2AAB5CC400FA5B67 /* FinalViewController.swift */; };
 		AD5CECD32AAB857600FA5B67 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECD22AAB857600FA5B67 /* Reservation.swift */; };
 		AD5CECD82AAC42A300FA5B67 /* UIlabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECD72AAC42A300FA5B67 /* UIlabel.swift */; };
-		AD5CECDC2AACF0B400FA5B67 /* TouristInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECDB2AACF0B400FA5B67 /* TouristInfoTableViewCell.swift */; };
 		AD5CECDF2AAD011500FA5B67 /* HeaderForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECDE2AAD011500FA5B67 /* HeaderForTableView.swift */; };
 		AD5CECE12AADB28300FA5B67 /* ResumePriceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5CECE02AADB28300FA5B67 /* ResumePriceInfoView.swift */; };
 		ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD688C2AA63267005CC2E4 /* AppDelegate.swift */; };
@@ -52,6 +50,7 @@
 		ADBD68912AA63267005CC2E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBD68902AA63267005CC2E4 /* ViewController.swift */; };
 		ADBD68962AA63268005CC2E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADBD68952AA63268005CC2E4 /* Assets.xcassets */; };
 		ADBD68992AA63268005CC2E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADBD68972AA63268005CC2E4 /* LaunchScreen.storyboard */; };
+		ADC1D9B72AAF81A700B588D3 /* TouristInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC1D9B62AAF81A700B588D3 /* TouristInfoStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,11 +87,9 @@
 		AD5CECC72AAB106700FA5B67 /* ReservationDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDataView.swift; sourceTree = "<group>"; };
 		AD5CECC92AAB32C200FA5B67 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 		AD5CECCB2AAB35EA00FA5B67 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		AD5CECCD2AAB5B6400FA5B67 /* TouristInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristInfoView.swift; sourceTree = "<group>"; };
 		AD5CECCF2AAB5CC400FA5B67 /* FinalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
 		AD5CECD22AAB857600FA5B67 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		AD5CECD72AAC42A300FA5B67 /* UIlabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIlabel.swift; sourceTree = "<group>"; };
-		AD5CECDB2AACF0B400FA5B67 /* TouristInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristInfoTableViewCell.swift; sourceTree = "<group>"; };
 		AD5CECDE2AAD011500FA5B67 /* HeaderForTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderForTableView.swift; sourceTree = "<group>"; };
 		AD5CECE02AADB28300FA5B67 /* ResumePriceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePriceInfoView.swift; sourceTree = "<group>"; };
 		ADBD68892AA63267005CC2E4 /* HotelsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +99,7 @@
 		ADBD68952AA63268005CC2E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADBD68982AA63268005CC2E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ADBD689A2AA63268005CC2E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADC1D9B62AAF81A700B588D3 /* TouristInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristInfoStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +193,6 @@
 			children = (
 				AD1DEA1D2AAA3AC600D836EB /* ReservationViewController.swift */,
 				AD5CECD52AAB86DB00FA5B67 /* Subviews */,
-				AD5CECDD2AACF0B800FA5B67 /* Cells */,
 			);
 			path = Screen3;
 			sourceTree = "<group>";
@@ -239,10 +236,10 @@
 			children = (
 				AD5CECC22AAB0BCF00FA5B67 /* MainInformationView2.swift */,
 				AD5CECC72AAB106700FA5B67 /* ReservationDataView.swift */,
-				AD5CECCD2AAB5B6400FA5B67 /* TouristInfoView.swift */,
 				AD5CECDE2AAD011500FA5B67 /* HeaderForTableView.swift */,
 				AD5CECC92AAB32C200FA5B67 /* PersonalInformationView.swift */,
 				AD5CECE02AADB28300FA5B67 /* ResumePriceInfoView.swift */,
+				ADC1D9B62AAF81A700B588D3 /* TouristInfoStackView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -271,14 +268,6 @@
 				ADBD68972AA63268005CC2E4 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
-			sourceTree = "<group>";
-		};
-		AD5CECDD2AACF0B800FA5B67 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				AD5CECDB2AACF0B400FA5B67 /* TouristInfoTableViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		ADBD68802AA63267005CC2E4 = {
@@ -409,19 +398,18 @@
 				AD1DEA162AA9F9AE00D836EB /* TableViewCell.swift in Sources */,
 				AD5CECCC2AAB35EA00FA5B67 /* UIView.swift in Sources */,
 				AD5CECE12AADB28300FA5B67 /* ResumePriceInfoView.swift in Sources */,
-				AD5CECCE2AAB5B6400FA5B67 /* TouristInfoView.swift in Sources */,
 				AD1DEA0F2AA8AC7F00D836EB /* NetworkManager.swift in Sources */,
 				ADBD688D2AA63267005CC2E4 /* AppDelegate.swift in Sources */,
 				AD1DEA202AAA40AE00D836EB /* Room.swift in Sources */,
 				AD1DEA1A2AAA147700D836EB /* RoomsViewController.swift in Sources */,
 				AD1DEA1C2AAA2C1500D836EB /* RoomTableViewCell.swift in Sources */,
 				AD1DEA112AA9E67800D836EB /* AdditionInformationView.swift in Sources */,
+				ADC1D9B72AAF81A700B588D3 /* TouristInfoStackView.swift in Sources */,
 				AD5CECD02AAB5CC400FA5B67 /* FinalViewController.swift in Sources */,
 				AD1DE9DE2AA7594800D836EB /* CollectionViewCell.swift in Sources */,
 				ADBD688F2AA63267005CC2E4 /* SceneDelegate.swift in Sources */,
 				AD5CECDF2AAD011500FA5B67 /* HeaderForTableView.swift in Sources */,
 				AD1DEA1E2AAA3AC600D836EB /* ReservationViewController.swift in Sources */,
-				AD5CECDC2AACF0B400FA5B67 /* TouristInfoTableViewCell.swift in Sources */,
 				AD5CECCA2AAB32C200FA5B67 /* PersonalInformationView.swift in Sources */,
 				AD5CECC32AAB0BCF00FA5B67 /* MainInformationView2.swift in Sources */,
 				AD5CECC82AAB106700FA5B67 /* ReservationDataView.swift in Sources */,

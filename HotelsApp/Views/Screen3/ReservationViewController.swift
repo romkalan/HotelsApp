@@ -18,7 +18,7 @@ final class ReservationViewController: UIViewController {
     private let mainInformationView = MainInformationView2()
     private let reservationDataView = ReservationDataView()
     private let personalInformationView = PersonalInformationView()
-    private let touristInfoView = TouristInfoView()
+    private let touristInfoView = TouristInfoStackView()
     private let resumePriceInfoView = ResumePriceInfoView()
     
     private lazy var payRoomButton: UIButton = {
@@ -138,12 +138,11 @@ private extension ReservationViewController {
             personalInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             personalInformationView.heightAnchor.constraint(equalToConstant: 190),
             
-            touristInfoView.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor),
+            touristInfoView.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor, constant: 24),
             touristInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             touristInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            touristInfoView.heightAnchor.constraint(equalToConstant: CGFloat(touristInfoView.cellCount * 63)),
             
-            resumePriceInfoView.topAnchor.constraint(equalTo: touristInfoView.bottomAnchor),
+            resumePriceInfoView.topAnchor.constraint(equalTo: touristInfoView.bottomAnchor, constant: 24),
             resumePriceInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             resumePriceInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             resumePriceInfoView.heightAnchor.constraint(equalToConstant: 156),
