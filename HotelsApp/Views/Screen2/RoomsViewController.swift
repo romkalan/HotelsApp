@@ -10,7 +10,7 @@ import UIKit
 final class RoomsViewController: UIViewController {
     
     let urlAPI = URL(string: "https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd")
-    private var rooms = Rooms(rooms: [])
+    private var rooms: [Room] = []
     let networkManager = NetworkManager.shared
     
     private lazy var tableView: UITableView = {
@@ -27,14 +27,17 @@ final class RoomsViewController: UIViewController {
         super.viewDidLoad()
         initialSettings()
         setupUI()
+        fetchRooms()
     }
     
     private func fetchRooms() {
         networkManager.fetchData(Rooms.self, from: urlAPI) { [weak self] result in
             switch result {
             case .success(let rooms):
-                self?.rooms = rooms
-                self?.tableView.reloadData()
+                self?.rooms = rooms.rooms
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             case .failure(let error):
                 print(error)
             }
@@ -76,7 +79,7 @@ extension RoomsViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension RoomsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        rooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,8 +90,8 @@ extension RoomsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let action = UIAction { [unowned self] _ in reservationButton() }
         cell.detailRoomButton.addAction(action, for: .touchUpInside)
-//        let room = rooms.rooms[indexPath.row]
-//        cell.configure(with: room)
+        let room = rooms[indexPath.row]
+        cell.configure(with: room)
 
         cell.selectionStyle = .none
         return cell

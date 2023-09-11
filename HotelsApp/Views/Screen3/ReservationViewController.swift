@@ -68,10 +68,12 @@ final class ReservationViewController: UIViewController {
         networkManager.fetchData(Reservation.self, from: URL(string: urlAPI)) { [weak self] result in
             switch result {
             case .success(let reservationInfo):
-                self?.mainInformationView.configure(data: reservationInfo)
-                self?.reservationDataView.configure(data: reservationInfo)
-                self?.resumePriceInfoView.configure(data: reservationInfo)
-                self?.payRoomButton.titleLabel?.text = "Оплатить " + String(reservationInfo.tour_price + reservationInfo.service_charge + reservationInfo.service_charge) + " ₽"
+                DispatchQueue.main.async {
+                    self?.mainInformationView.configure(data: reservationInfo)
+                    self?.reservationDataView.configure(data: reservationInfo)
+                    self?.resumePriceInfoView.configure(data: reservationInfo)
+                    self?.payRoomButton.titleLabel?.text = "Оплатить " + String(reservationInfo.tour_price + reservationInfo.service_charge + reservationInfo.service_charge) + " ₽"
+                }
             case .failure(let error):
                 print(error)
             }
@@ -114,14 +116,12 @@ private extension ReservationViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: view.frame.size.height + 350),
             
             mainInformationView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
@@ -133,7 +133,7 @@ private extension ReservationViewController {
             reservationDataView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             reservationDataView.heightAnchor.constraint(equalToConstant: 280),
             
-            personalInformationView.topAnchor.constraint(equalTo: reservationDataView.bottomAnchor, constant: 16),
+            personalInformationView.topAnchor.constraint(equalTo: reservationDataView.bottomAnchor),
             personalInformationView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             personalInformationView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             personalInformationView.heightAnchor.constraint(equalToConstant: 190),
@@ -143,14 +143,16 @@ private extension ReservationViewController {
             touristInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             touristInfoView.heightAnchor.constraint(equalToConstant: CGFloat(touristInfoView.cellCount * 63)),
             
-            resumePriceInfoView.topAnchor.constraint(equalTo: touristInfoView.bottomAnchor, constant: 16),
+            resumePriceInfoView.topAnchor.constraint(equalTo: touristInfoView.bottomAnchor),
             resumePriceInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             resumePriceInfoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+            resumePriceInfoView.heightAnchor.constraint(equalToConstant: 156),
             
-            payRoomButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            payRoomButton.topAnchor.constraint(equalTo: resumePriceInfoView.bottomAnchor),
             payRoomButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             payRoomButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            payRoomButton.heightAnchor.constraint(equalToConstant: 48)
+            payRoomButton.heightAnchor.constraint(equalToConstant: 48),
+            payRoomButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
         ])
     }
 }

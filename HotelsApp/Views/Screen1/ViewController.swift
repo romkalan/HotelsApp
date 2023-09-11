@@ -12,15 +12,16 @@ final class ViewController: UIViewController {
     private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
     private var hotel: Hotel?
     private var image: UIImage!
+    private var imageURLs: [String] = []
     private let networkManager = NetworkManager.shared
     
     let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = 5
         pageControl.backgroundColor = .white
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.layer.cornerRadius = 10
+        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         return pageControl
     }()
     
@@ -34,6 +35,7 @@ final class ViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
+        
         
         let collectionView = UICollectionView(
             frame: self.view.frame,
@@ -73,10 +75,10 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "Отель"
         setupUI()
-        fetchHotel()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = .systemBackground
         scrollView.alwaysBounceVertical = true
+        fetchHotel()
     }
     
     private func chooseRoom() {
@@ -84,14 +86,23 @@ final class ViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func setupHotelModel(_ hotel: Hotel) {
+        self.hotel = hotel
+        mainInformationView.configure(with: hotel)
+        additionInformationView.configure(with: hotel)
+        imageURLs = hotel.image_urls
+        pageControl.numberOfPages = imageURLs.count
+        collectionView.reloadData()
+    }
+    
     // MARK: - Networking
     private func fetchHotel() {
         networkManager.fetchData(Hotel.self, from: URL(string: urlAPI)) { [weak self] result in
             switch result {
             case .success(let hotel):
-                self?.mainInformationView.configure(with: hotel)
-                self?.additionInformationView.configure(with: hotel)
-                self?.collectionView.reloadData()
+                DispatchQueue.main.async {
+                    self?.setupHotelModel(hotel)
+                }
             case .failure(let error):
                 print(error)
             }
@@ -167,7 +178,7 @@ private extension ViewController {
 // MARK: UICollectionViewDelegate, UICollectionViewDataSource
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        imageURLs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -176,7 +187,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             for: indexPath
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.configure(image: UIImage(named: "mainImage"))
+        let imageName = imageURLs[indexPath.row]
+        cell.configure(imageName: imageName)
+        
         return cell
     }
     

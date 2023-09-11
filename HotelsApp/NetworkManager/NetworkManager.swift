@@ -32,24 +32,27 @@ final class NetworkManager {
             let decoder = JSONDecoder()
             do {
                 let dataModel = try decoder.decode(T.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(dataModel))
-                }
+                completion(.success(dataModel))
             } catch {
                 completion(.failure(.decodingError))
             }
         }.resume()
     }
     
-    func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                completion(.failure(.noData))
+    func fetchImage(from urlString: String, completion: @escaping(Result<Data, NetworkError>) -> Void) {
+            guard let url = URL(string: urlString) else {
+                completion(.failure(.invalidURL))
                 return
             }
-            DispatchQueue.main.async {
-                completion(.success(data))
+            
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: url) else {
+                    completion(.failure(.noData))
+                    return
+                }
+                DispatchQueue.main.async {
+                    completion(.success(imageData))
+                }
             }
-        }.resume()
     }
 }

@@ -8,7 +8,9 @@
 import UIKit
 
 final class RoomTableViewCell: UITableViewCell {
+    
     static let reuseID = "room"
+    private var imageURLs: [String] = []
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,7 +24,7 @@ final class RoomTableViewCell: UITableViewCell {
         )
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.layer.cornerRadius = 30
+        collectionView.layer.cornerRadius = 15
         collectionView.register(
             CollectionViewCell.self,
             forCellWithReuseIdentifier: CollectionViewCell.reuseID
@@ -40,6 +42,7 @@ final class RoomTableViewCell: UITableViewCell {
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.layer.cornerRadius = 10
+        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
     }()
@@ -144,6 +147,9 @@ final class RoomTableViewCell: UITableViewCell {
         advantage2.text = data.peculiarities[1]
         roomPriceLabel.text = "От " + String(data.price) + " ₽"
         countOfNightsLabel.text = data.price_per
+        imageURLs = data.image_urls
+        pageControl.numberOfPages = imageURLs.count
+        collectionView.reloadData()
     }
 }
 
@@ -205,7 +211,7 @@ private extension RoomTableViewCell {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        imageURLs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -214,13 +220,9 @@ extension RoomTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             for: indexPath
         ) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        if indexPath.row == 0 {
-            cell.configure(image: UIImage(named: "room1"))
-        } else if indexPath.row == 1 {
-            cell.configure(image: UIImage(named: "room2"))
-        } else {
-            cell.configure(image: UIImage(named: "room3"))
-        }
+        let imageName = imageURLs[indexPath.row]
+        cell.configure(imageName: imageName)
+        
         return cell
     }
     
