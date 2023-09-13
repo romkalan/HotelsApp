@@ -25,7 +25,7 @@ final class FinalViewController: UIViewController {
     }()
     
     private let additionMessage = UILabel(
-        text: "Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.",
+        text: "Подтверждение заказа №\(Int.random(in: 0...999999)) может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.",
         textColor: UIColor(named: "grayText"),
         backgroundColor: .clear,
         font: UIFont(name: "SF Pro Display", size: 14),

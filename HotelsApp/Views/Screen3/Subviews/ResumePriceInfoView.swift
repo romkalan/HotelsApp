@@ -55,10 +55,17 @@ final class ResumePriceInfoView: UIView {
     }
     
     func configure(data: Reservation) {
-        priceForTourLabel.text = String(data.tour_price) + " ₽"
-        priceForFuelLabel.text = String(data.fuel_charge) + " ₽"
-        priceForServiceLabel.text = String(data.service_charge) + " ₽"
-        finalPriceLabel.text = String(data.tour_price + data.service_charge + data.service_charge) + " ₽"
+        priceForTourLabel.text = String(formatNumber(data.tour_price)) + " ₽"
+        priceForFuelLabel.text = String(formatNumber(data.fuel_charge)) + " ₽"
+        priceForServiceLabel.text = String(formatNumber(data.service_charge)) + " ₽"
+        finalPriceLabel.text = String(formatNumber(data.tour_price + data.service_charge + data.service_charge)) + " ₽"
+    }
+    
+    private func formatNumber(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
     
 }

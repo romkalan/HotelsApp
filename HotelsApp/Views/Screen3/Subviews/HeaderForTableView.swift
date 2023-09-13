@@ -29,7 +29,7 @@ final class HeaderForTableView: UIView {
         return button
     }()
     
-    private let label = UILabel(
+    let label = UILabel(
         text: "Первый турист",
         textColor: .black,
         backgroundColor: .clear,
@@ -47,7 +47,6 @@ final class HeaderForTableView: UIView {
     }
     
     private func showInfo() {
-        
     }
     
 }

@@ -85,8 +85,15 @@ final class MainInformationView1: UIView {
     func configure(with data: Hotel) {
         rateLabel.text = String(data.rating) + " " + data.rating_name
         addressButton.titleLabel?.text = data.adress
-        hotelPriceLabel.text = "От " + String(data.minimal_price) + " ₽"
+        hotelPriceLabel.text = "От " + String(formatNumber(data.minimal_price)) + " ₽"
         forWayWithFlyLabel.text = data.price_for_it
+    }
+    
+    private func formatNumber(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
 }
 

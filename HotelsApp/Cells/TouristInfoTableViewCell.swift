@@ -1,13 +1,15 @@
 //
-//  TouristInfoStackView.swift
+//  TouristInfoCellTableViewCell.swift
 //  HotelsApp
 //
-//  Created by Roman Lantsov on 11.09.2023.
+//  Created by Roman Lantsov on 12.09.2023.
 //
 
 import UIKit
 
-final class TouristInfoStackView: UIView {
+final class TouristInfoTableViewCell: UITableViewCell {
+    
+    static let reuseID = "tourist"
     
     private var isHide = false {
         didSet {
@@ -18,6 +20,8 @@ final class TouristInfoStackView: UIView {
     
     private let stackView = UIStackView()
     let headerForStackView = HeaderForTableView()
+//    private let numberOfTouristLabel = UILabel()
+//    private let button = UIButton()
     
     lazy var nameTextField: UITextField = {
         createTextField(withText: "Иван", andPlaceholder: "Имя")
@@ -42,16 +46,18 @@ final class TouristInfoStackView: UIView {
     lazy var validityOfPassportTextField: UITextField = {
         createTextField(withText: "", andPlaceholder: "Срок действия загранпаспорта")
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-        addAction(for: headerForStackView.showInfoButton)
-        setupButton()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
     
     private func createTextField(withText text: String, andPlaceholder placeholder: String) -> UITextField {
@@ -65,44 +71,11 @@ final class TouristInfoStackView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }
-    
-    private func hide(textFields: UIView...) {
-        textFields.forEach { textField in
-            UIView.animate(withDuration: 0.3) {
-                textField.isHidden.toggle()
-                self.layoutIfNeeded()
-            }
-        }
-    }
-    
-    private func addAction(for button: UIButton) {
-        let action = UIAction { [unowned self] _ in
-            hide(textFields: nameTextField, surNameTextField, birthВateTextField,
-                 nationalityTextField, passportTextField, validityOfPassportTextField)
-        }
-        button.addAction(action, for: .touchUpInside)
-        isHide.toggle()
-    }
-    
-    private func setupButton() {
-        let icon = UIImage(named: isHide ? "chevron.up" : "chevron.down")
-        headerForStackView.showInfoButton.setImage(icon, for: .normal)
-        headerForStackView.showInfoButton.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
-    }
-    
-    @objc private func touchButton() {
-        nameTextField.isHidden = isHide ? true : false
-        surNameTextField.isHidden = isHide ? true : false
-        birthВateTextField.isHidden = isHide ? true : false
-        nationalityTextField.isHidden = isHide ? true : false
-        passportTextField.isHidden = isHide ? true : false
-        validityOfPassportTextField.isHidden = isHide ? true : false
-        isHide.toggle()
-    }
+
 }
 
-//MARK: - SetupUI with Constraints
-private extension TouristInfoStackView {
+// MARK: - NSLayoutConstraint
+private extension TouristInfoTableViewCell {
     func setupUI() {
         configureStackView()
         addViews()
@@ -110,7 +83,7 @@ private extension TouristInfoStackView {
     }
     
     func configureStackView() {
-        self.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -133,10 +106,17 @@ private extension TouristInfoStackView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            nameTextField.heightAnchor.constraint(equalToConstant: 52),
+            surNameTextField.heightAnchor.constraint(equalToConstant: 52),
+            birthВateTextField.heightAnchor.constraint(equalToConstant: 52),
+            nationalityTextField.heightAnchor.constraint(equalToConstant: 52),
+            passportTextField.heightAnchor.constraint(equalToConstant: 52),
+            validityOfPassportTextField.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
 }

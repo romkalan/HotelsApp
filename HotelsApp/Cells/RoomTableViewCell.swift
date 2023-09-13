@@ -145,11 +145,18 @@ final class RoomTableViewCell: UITableViewCell {
         aboutRoomLabel.text = data.name
         advantage1.text = data.peculiarities[0]
         advantage2.text = data.peculiarities[1]
-        roomPriceLabel.text = "От " + String(data.price) + " ₽"
+        roomPriceLabel.text = "От " + String(formatNumber(data.price)) + " ₽"
         countOfNightsLabel.text = data.price_per
         imageURLs = data.image_urls
         pageControl.numberOfPages = imageURLs.count
         collectionView.reloadData()
+    }
+    
+    private func formatNumber(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
 }
 
