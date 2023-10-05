@@ -140,8 +140,7 @@ private extension MainInformationView1 {
             hotelPriceLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
             
             forWayWithFlyLabel.centerYAnchor.constraint(equalTo: hotelPriceLabel.centerYAnchor),
-            forWayWithFlyLabel.leftAnchor.constraint(equalTo: hotelPriceLabel.rightAnchor, constant: 8),
-            
+            forWayWithFlyLabel.leftAnchor.constraint(equalTo: hotelPriceLabel.rightAnchor, constant: 8)
         ])
     }
 }
