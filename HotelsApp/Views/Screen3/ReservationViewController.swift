@@ -9,7 +9,8 @@ import UIKit
 
 final class ReservationViewController: UIViewController {
     
-    private let urlAPI = "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"
+//    private let urlAPI = "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"
+    private let urlAPI = "https://run.mocky.io/v3/63866c74-d593-432c-af8e-f279d1a8d2ff"
     private let networkManager = NetworkManager.shared
     
     private var numberOfTourist = 1
@@ -134,7 +135,6 @@ private extension ReservationViewController {
         addViews()
         scrollView.backgroundColor = .systemBackground
         setConstraints()
-//        setupTableView()
     }
     
     func addViews() {
@@ -143,33 +143,13 @@ private extension ReservationViewController {
         contentView.addSubview(mainInformationView)
         contentView.addSubview(reservationDataView)
         contentView.addSubview(personalInformationView)
-//        contentView.addSubview(touristInfoView)
-//        contentView.addSubview(touristInfoTableView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(touristInfoView)
-//        stackView.addArrangedSubview(touristInfoTableView)
-//        stackView.addArrangedSubview(resumePriceInfoView)
-//        stackView.addArrangedSubview(payRoomButton)
         stackView.addArrangedSubview(secondTouristInfoView)
         stackView.addArrangedSubview(addTouristView)
         contentView.addSubview(resumePriceInfoView)
         contentView.addSubview(payRoomButton)
     }
-    
-//    func setupTableView() {
-//        touristInfoTableView.allowsSelection = false
-//        touristInfoTableView.separatorStyle = .none
-//        touristInfoTableView.register(
-//            TouristInfoTableViewCell.self,
-//            forCellReuseIdentifier: TouristInfoTableViewCell.reuseID
-//        )
-//        touristInfoTableView.register(
-//            AddNewTouristTableViewCell.self,
-//            forCellReuseIdentifier: AddNewTouristTableViewCell.reuseID
-//        )
-//        touristInfoTableView.delegate = self
-//        touristInfoTableView.dataSource = self
-//    }
     
     func setConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -178,7 +158,6 @@ private extension ReservationViewController {
         reservationDataView.translatesAutoresizingMaskIntoConstraints = false
         personalInformationView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
-//        touristInfoTableView.translatesAutoresizingMaskIntoConstraints = false
         resumePriceInfoView.translatesAutoresizingMaskIntoConstraints = false
         payRoomButton.translatesAutoresizingMaskIntoConstraints = false
         touristInfoView.translatesAutoresizingMaskIntoConstraints = false
@@ -214,12 +193,6 @@ private extension ReservationViewController {
             stackView.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor, constant: 24),
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-//            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16),
-            
-//            touristInfoTableView.topAnchor.constraint(equalTo: personalInformationView.bottomAnchor, constant: 16),
-//            touristInfoTableView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-//            touristInfoTableView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-//            touristInfoTableView.heightAnchor.constraint(equalToConstant: 7 * 52 + 50),
             
             resumePriceInfoView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 38),
             resumePriceInfoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
@@ -234,59 +207,3 @@ private extension ReservationViewController {
         ])
     }
 }
-////MARK: - AddTouristCellDelegate
-//extension ReservationViewController: AddTouristCellDelegate {
-//    func addTourist() {
-//        numberOfTourist += 1
-//        self.touristInfoTableView.reloadData()
-//    }
-//}
-////MARK: - TouristCellDelegate
-//extension ReservationViewController: TouristInfoCellDelegate {
-//    func updateCellHeight(isOpen: Bool) {
-//        self.touristInfoTableView.reloadData()
-//    }
-//}
-
-//// MARK: - UITableViewDelegate, UITableViewDataSource
-//extension ReservationViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        section == 3 ? numberOfTourist : 3
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.section == 0 {
-//            guard let cell = tableView.dequeueReusableCell (
-//                withIdentifier: TouristInfoTableViewCell.reuseID,
-//                for: indexPath
-//            ) as? TouristInfoTableViewCell else { return UITableViewCell() }
-////            cell.delegate = self
-////
-////            if indexPath.row > 9 {
-////                cell.touristNumber(title: String(indexPath.row + 1) + " турист")
-////            } else {
-////                cell.touristNumber(title: numberOfTouristInString[indexPath.row] + " турист")
-////            }
-//
-//            cell.selectionStyle = .none
-//            return cell
-//        } else {
-//            guard let cell = tableView.dequeueReusableCell (
-//                withIdentifier: AddNewTouristTableViewCell.reuseID,
-//                for: indexPath
-//            ) as? AddNewTouristTableViewCell else { return UITableViewCell() }
-////            cell.delegate = self
-//
-//            cell.selectionStyle = .none
-//            return cell
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//       UITableView.automaticDimension
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        3
-//    }
-//}

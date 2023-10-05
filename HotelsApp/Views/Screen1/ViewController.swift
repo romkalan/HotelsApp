@@ -9,7 +9,9 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
+//    private let urlAPI = "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3"
+    private let urlAPI = "https://run.mocky.io/v3/d144777c-a67f-4e35-867a-cacc3b827473"
+
     private var hotel: Hotel?
     private var image: UIImage!
     private var imageURLs: [String] = []
