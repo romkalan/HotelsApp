@@ -9,7 +9,6 @@ import UIKit
 
 final class RoomsViewController: UIViewController {
     
-//    let urlAPI = URL(string: "https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd")
     let urlAPI = URL(string: "https://run.mocky.io/v3/8b532701-709e-4194-a41c-1a903af00195")
 
     private var rooms: [Room] = []

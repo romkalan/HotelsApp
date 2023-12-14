@@ -9,7 +9,6 @@ import UIKit
 
 final class ReservationViewController: UIViewController {
     
-//    private let urlAPI = "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"
     private let urlAPI = "https://run.mocky.io/v3/63866c74-d593-432c-af8e-f279d1a8d2ff"
     private let networkManager = NetworkManager.shared
     
@@ -93,9 +92,9 @@ final class ReservationViewController: UIViewController {
     
     @objc private func addNewTourist() {
         let newTourist = TouristInfoStackView()
-        stackView.addArrangedSubview(newTourist)
-        newTourist.translatesAutoresizingMaskIntoConstraints = false
         newTourist.headerForStackView.label.text = "Новый турист"
+        newTourist.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(newTourist)
     }
     
     private func initialSettings() {

@@ -22,7 +22,9 @@ final class HeaderForTableView: UIView {
         let button = UIButton(
             configuration: buttonConfiguration,
             primaryAction: UIAction
-            { [unowned self] _ in showInfo() }
+            { [unowned self] _ in 
+                let newTourist = showInfo()
+            }
         )
         button.titleLabel?.textAlignment = .center
         
@@ -46,7 +48,10 @@ final class HeaderForTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func showInfo() {
+    private func showInfo() -> TouristInfoStackView {
+        let tourist = TouristInfoStackView()
+        tourist.headerForStackView.label.text = "Новый турист"
+        return tourist
     }
     
 }
