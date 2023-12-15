@@ -7,9 +7,9 @@
 Экраны сверстаны без использования Storyboards
 
 Все данные взяты из API:
-- https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3
-- https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd
-- https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8
+- https://run.mocky.io/v3/d144777c-a67f-4e35-867a-cacc3b827473
+- https://run.mocky.io/v3/8b532701-709e-4194-a41c-1a903af00195
+- https://run.mocky.io/v3/63866c74-d593-432c-af8e-f279d1a8d2ff
 
 При введении номера телефона реализована маска текстового поля
 
